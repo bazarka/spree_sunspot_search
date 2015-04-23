@@ -26,10 +26,10 @@ module Spree
             end
           end
         end
-
+        order_by = @properties[:order_by].join(' ') || "name asc"
         curr_page = @properties[:page] || 1
         per_page  = @properties[:per_page] || Spree::Config[:products_per_page]
-        @products = @products_scope.includes([:master]).page(curr_page).per(per_page)
+        @products = @products_scope.includes([:master]).order(order_by).page(curr_page).per(per_page)
       end
 
       def similar_products(product, *field_names)
