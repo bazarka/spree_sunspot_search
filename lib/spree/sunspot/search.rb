@@ -142,7 +142,7 @@ module Spree
       end
 
       def ordering_property
-        @properties[:order_by] = @properties[:order_by].blank? ? %w(name desc) : @properties[:order_by].split(',')
+        @properties[:order_by] = @properties[:order_by].blank? ? %w(name asc) : @properties[:order_by].split(',')
         @properties[:order_by].flatten
       end
       
