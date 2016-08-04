@@ -16,6 +16,7 @@ module Spree
         @products_scope = get_base_scope
         if args
           args.each do |additional_scope|
+            @new_per_page = additional_scope[:per_page] if additional_scope[:per_page].present?
             case additional_scope
               when Hash
                 scope_method = additional_scope.keys.first
@@ -28,7 +29,8 @@ module Spree
         end
         order_by = @properties[:order_by].join(' ') || "name asc"
         curr_page = @properties[:page] || 1
-        per_page  = @properties[:per_page] || Spree::Config[:products_per_page]
+        per_page  = @new_per_page || Spree::Config[:products_per_page]
+        
         @products = @products_scope.includes([:master]).order(order_by).page(curr_page).per(per_page)
       end
 
