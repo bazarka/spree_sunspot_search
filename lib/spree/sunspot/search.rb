@@ -62,7 +62,7 @@ module Spree
       def get_base_scope
         base_scope = Spree::Product.active
         base_scope = base_scope.in_taxon(taxon) unless taxon.blank?
-        base_scope = get_products_conditions_for(base_scope, keywords)
+        base_scope = get_products_conditions_for(base_scope, keywords, 30)
         # base_scope = base_scope.on_hand unless Spree::Config[:show_zero_stock_products]
 
         base_scope = add_search_scopes(base_scope)
@@ -77,7 +77,7 @@ module Spree
           # Use a high per_page here so that all results are retrieved when setting base_scope at the end of this method.
           # Otherwise you'll never have more than the first page of results from here returned, when pagination is done
           # during the retrieve_products method.
-          q.paginate(page: 1, per_page: Spree::Product.count)
+          q.paginate(page: 1, per_page: 30)
         end
 
         unless @properties[:filters].blank?
