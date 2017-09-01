@@ -103,9 +103,9 @@ module Spree
       def prepare(params)
         super
         @properties[:filters] = params[:s] || params['s'] || []
-        if params[:scope].present?
-          @properties[:filters][:in_rooms] = '1' if params[:scope][:choice].present?
-        end
+        # if params[:scope].present?
+        #   @properties[:filters][:in_rooms] = '1' if params[:scope][:choice].present?
+        # end
         @properties[:order_by] = params[:order_by] || params['order_by'] || []
         @properties[:location_coords] = params[:location_coords] || params['location_coords'] || nil
         @properties[:total_similar_products] = params[:total_similar_products].to_i > 0 ?
